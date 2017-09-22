@@ -1,0 +1,13 @@
+localhost ansible_connection=local
+
+win2012   ansible_host=ec2-some-ip-address.compute-1.amazonaws.com
+
+[win]
+win2012   ec2-some-ip-address.compute-1.amazonaws.com
+
+[win:vars]
+ansible_connection=winrm
+ansible_ssh_port=5986
+ansible_ssh_user=Administrator
+ansible_ssh_pass=Admin123
+ansible_winrm_server_cert_validation=ignore

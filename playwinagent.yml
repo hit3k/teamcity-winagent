@@ -1,0 +1,9 @@
+---
+- name: "Install TeamCity Agent"
+  hosts: all
+  gather_facts: false
+  vars:
+    teamcity_agent_name: win2012_localhost_agent
+
+  roles:
+    - buildagent-windows

@@ -1,0 +1,13 @@
+---
+teamcity_agent_name: buildAgent
+teamcity_agent_service: "{{ teamcity_agent_name }}"
+
+teamcity_agent_user: teamcity
+teamcity_agent_group: teamcity
+teamcity_agent_install_dir: "C:/{{ teamcity_agent_name }}"
+
+# Decided to comment it out for now, pass it in command line
+teamcity_server_url: http://ec2-teamcity-ip-address.compute-1.amazonaws.com
+teamcity_server_port: 8111
+teamcity_server_user_name: teamcity
+teamcity_server_user_passwd: teamcity

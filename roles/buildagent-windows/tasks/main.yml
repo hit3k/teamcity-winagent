@@ -1,0 +1,37 @@
+---
+- name: Create C:/tmp directory
+  win_file:
+    path: C:/tmp
+    state: directory
+
+- name: Download Build Agent installer
+  win_get_url:
+    url: "{{ teamcity_server_url }}:{{ teamcity_server_port }}/update/agentInstaller.exe"
+    dest: "C:/tmp/agentInstaller.exe"
+
+- name: Install Build Agent application
+  win_package:
+    path: "C:/tmp/agentInstaller.exe"
+    arguments: "/S /install /passive INSTALLDIR=C:/BuildAgent /qn /L C:/installerLog.txt"
+    name: buildAgent
+    productid: "JetBrains TeamCity Agent"
+    creates_service: TCBuildAgent
+    creates_path: C:/BuildAgent
+    state: present
+
+- name: Ensure conf directory exists
+  win_file:
+    path: C:/buildAgent/conf
+    state: directory
+
+- name: Create config from a Jinja2 template
+  win_template:
+    src: buildAgent.properties.j2
+    dest: C:/BuildAgent/conf/buildAgent.properties
+
+- name: Kick off Windows Build Agent
+  win_command: C:/BuildAgent/bin/agent.bat start
+  args:
+    chdir: C:/BuildAgent/bin
+  async: 100
+  poll: 0

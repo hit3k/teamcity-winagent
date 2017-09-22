@@ -1,0 +1,19 @@
+---
+- name: "Spin up ec2 at AWS"
+  hosts: localhost
+  connection: local
+  vars:
+    teamcity_agent_name: win2012_aws_agent
+    instance_type: m3.medium
+    # pv ami for the agent
+    instance_ami: ami-40a8b123
+  roles:
+    - ec2-windows
+
+- name: "Install TeamCity Agent"
+  hosts: win
+  gather_facts: false
+  vars:
+    teamcity_agent_name: win2012_aws_agent
+  roles:
+    - buildagent-windows

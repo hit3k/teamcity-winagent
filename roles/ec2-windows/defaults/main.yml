@@ -1,0 +1,6 @@
+---
+teamcity_agent_name: buildagent-windows
+teamcity_name: "{{ teamcity_agent_name }}"
+# latest ami, not the best one
+instance_ami: ami-10b1a873
+instance_type: m3.medium
